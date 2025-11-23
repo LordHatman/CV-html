@@ -2,7 +2,6 @@
 /* 1. BASE DOCUMENT & A4 PAGE    */
 /* ============================= */
 
-/* Optional: give the body a neutral background so the page stands out */
 body {
   margin: 0;
   background: #eee;
@@ -11,7 +10,7 @@ body {
 
 .page {
   position: relative;
-  width: 794px;        /* A4 width */
+  width: 794px;
   min-height: 1123px;
   margin: 0 auto;
   background: white;
@@ -20,194 +19,151 @@ body {
   border: 1px solid #ccc;
 }
 
-/* Top-right profile image */
+/* Profile image top-right */
 .topPhoto {
-  position: absolute;   /* fix inside .page only */
-  top: 12px;            /* margin from top */
-  right: 24px;          /* margin from right */
-  width: 128px;         /* max width */
-  height: 128px;        /* max height */
-  object-fit: cover;    /* keep proportions */
-  border-radius: 4px;   /* optional */
-  z-index: 999;         /* keep above background */
+  position: absolute;
+  top: 12px;
+  right: 24px;
+  width: 128px;
+  height: 128px;
+  object-fit: cover;
+  border-radius: 4px;
+  z-index: 999;
 }
 
 /* ============================= */
-/* 2. LAYOUT: MAIN GRID          */
+/* 2. MAIN GRID                  */
 /* ============================= */
 
 main {
   display: grid;
-  grid-template-columns: 2fr 1fr; /* left wide column, right sidebar */
+  grid-template-columns: 2.4fr 0.6fr;
   column-gap: 24px;
+
+  /* Anchor grid so print cannot push items down */
+  align-items: start;
+  position: relative;
 }
 
-/* ================================= */
-/*  TOP BLUE HEADER BANNER           */
-/* ================================= */
+/* ============================= */
+/* 3. TOP BLUE HEADER            */
+/* ============================= */
 
 .topBanner {
-  background: #003B73; /* deep professional blue */
+  background: #003B73;
   color: white;
-  padding: 32px;
-  margin: -32px -32px 32px -32px; /* override page padding to go full width */
-  text-align: left;
+  padding: 20px 32px 14px;
+  margin: -32px -32px 14px -32px;
 }
 
 .topBanner .name {
-  font-size: 36px;
+  font-size: 34px;
   font-weight: 700;
-  margin: 0 0 8px 0;
-  color: white;
+  margin: 0 0 4px 0;
 }
 
 .topBanner .title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 300;
   margin: 0;
-  color: white;
 }
 
-/* ============================= */
-/* 3. SECTION PLACEMENT          */
-/* ============================= */
-
-/* SUMMARY – full width with blue background */
+/* Summary inside the banner */
 .summarySection {
-  grid-column: 1 / 3;          /* full width in the grid */
-  grid-row: 1;                 /* first row */
-
-  background: #003B73;
+  margin-top: 10px;
   color: white;
-
-  /* Bleed out of .page padding so it reaches page edges */
-  margin: 0 -32px 24px -32px;  /* left/right = -page padding, bottom = spacing */
-  padding: 20px 32px;          /* reintroduce inner padding incl. sides */
-
-  border-radius: 0;
 }
 
-.summarySection h2 {
-  color: white;
-  margin-top: 0;
+.summarySection p {
+  margin: 0;
 }
 
-/* ONLY the initial work experience block aligns with the sidebar */
-.workExperienceSection {
-  grid-column: 1 / 2;   /* left column */
-  grid-row: 2;          /* directly under summary, aligned with right column */
-}
+/* ============================= */
+/* 4. RIGHT SIDEBAR              */
+/* ============================= */
 
-/* The remaining work experience – we tweak behavior via .fullWidthExperience */
-.workExperienceContinued {
-  margin-top: 0;        /* no extra gap before the rest of the roles */
-}
-
-/* Unified sidebar box (Contact + Skills + Languages) */
 .rightSidebar {
   grid-column: 2 / 3;
-  grid-row: 2;
-
+  grid-row: 1;         /* IMPORTANT: sidebar stays at top */
   background: #003B73;
   color: white;
-  padding: 20px;
-
-  /* Bleed to the right edge of the page */
-  margin-right: -32px;  /* cancels .page right padding */
-
-  border-radius: 0;
-  height: auto;         /* adjusts to content */
-  align-self: start;    /* prevents stretching down the full column */
+  padding: 14px 18px;
+  align-self: start;
+  height: auto;
 }
 
-/* Sections inside the sidebar just get spacing */
 .rightSidebar section {
-  margin-bottom: 24px;
+  margin-bottom: 14px;
+}
+
+.rightSidebar p,
+.rightSidebar li {
+  margin: 2px 0;
+  line-height: 1.2;
+  font-size: 13px;
 }
 
 .rightSidebar h2 {
-  color: white;
-  margin-top: 0;
-}
-
-/* Ensure section headers inside sidebar are white (extra safety) */
-.contactSection h2,
-.skillsSection h2,
-.languagesSection h2 {
-  color: white;
-  margin-top: 0;
-}
-
-/* ========================= */
-/*   LANGUAGE DOT GRAPHICS   */
-/* ========================= */
-
-.languagesSection {
-  padding-top: 16px;
-  padding-bottom: 16px;
-}
-
-.languageItem {
-  margin-bottom: 24px;
-}
-
-.langName {
-  font-weight: 600;
   margin: 0 0 6px 0;
-}
-
-.langDots {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 4px;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-/* Filled vs empty dots – still white, but different opacity */
-.dot.filled {
-  background-color: white;
-  opacity: 1;
-}
-
-.dot.empty {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-.langLevel {
-  margin: 0;
-  font-size: 12px;
-  opacity: 0.9;
-}
-
-/* Make remaining experience full-width and independent of the grid */
-.fullWidthExperience {
-  grid-column: 1 / -1 !important;   /* span across both grid columns */
-  display: block;                   /* normal block flow */
-  width: 100%;                      /* ensure full width */
-  margin-top: 24px;                 /* spacing above the block */
-}
-
-/* Ensure each experience item behaves like normal flow text */
-.fullWidthExperience .experienceItem {
-  width: 100%;
-  margin-bottom: 32px;              /* spacing between roles */
-}
-
-/* Education at the bottom, full width */
-.educationSection {
-  grid-column: 1 / 3;  /* full width bottom */
-  grid-row: auto;      /* place after all previous content */
-  margin-top: 32px;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 /* ============================= */
-/* 4. PRINT SETTINGS (A4)        */
+/* 5. LEFT COLUMN EXPERIENCE     */
+/* ============================= */
+
+.workExperienceSection {
+  grid-column: 1 / 2;
+  grid-row: 1;    /* NOW ALIGNED WITH SIDEBAR */
+  margin-top: 0;
+}
+
+.fullWidthExperience {
+  grid-column: 1 / -1;
+  margin-top: 24px;
+}
+
+/* ============================= */
+/*  TECHNICAL SKILLS SIDEBAR     */
+/*  (PAGE 2 BLUE BOX)            */
+/* ============================= */
+.techSkillsBox {
+  position: absolute;
+  top: 1250px;     /* keep adjusting this until it hits the top of page 2 where you want it */
+  right: 32px;     /* aligns its right edge with the main content, same as rightSidebar */
+
+  /* 20% of the inner page width (same as the 0.6fr column) */
+  width: calc((100% - 64px) * 0.2);
+
+  background: #003B73;
+  color: white;
+  padding: 16px 18px;
+  border-radius: 0;
+
+  box-sizing: border-box;
+  z-index: 900;
+}
+
+.techSkillsBox h2 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.techSkillsBox ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.techSkillsBox li {
+  margin: 2px 0;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+/* ============================= */
+/* 6. PRINT SETTINGS             */
 /* ============================= */
 
 @page {
@@ -222,21 +178,26 @@ main {
   }
 
   .page {
-    width: auto;
-    min-height: auto;
     margin: 0;
     border: none;
     box-shadow: none;
     padding: 32px;
   }
+
+  .printButton {
+    display: none;
+  }
 }
 
-/* Print button positioned directly under the photo */
+/* ============================= */
+/* 7. PDF BUTTON                 */
+/* ============================= */
+
 .printButton {
   position: absolute;
-  top: calc(12px + 128px + 8px);  /* 12px from top + image height (256px) + small gap */
-  right: 9px;                   /* align with the image's right margin */
-  
+  top: 12px;          /* align vertically with the image */
+  right: 160px;       /* exactly to the left of the image */
+
   padding: 8px 16px;
   font-size: 14px;
   background: #000000;
@@ -244,12 +205,5 @@ main {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  z-index: 998;                  /* slightly below image */
-}
-
-/* Hide the button during printing */
-@media print {
-  .printButton {
-    display: none;
-  }
+  z-index: 998;
 }
