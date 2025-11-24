@@ -283,3 +283,19 @@ main > .summarySection {
   font-size: 12px;
   opacity: 0.9;
 }
+
+@media print {
+  .experienceItem,
+  .languageItem,
+  .technicalSkillsSection,
+  .technicalSkillsSection li {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+}
+.topBanner,
+.rightSidebar,
+.techSkillsBox {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
