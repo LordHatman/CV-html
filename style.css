@@ -10,7 +10,7 @@ body {
 
 .page {
   position: relative;
-  width: 794px;
+  width: 794px;          /* A4 width at 96dpi */
   min-height: 1123px;
   margin: 0 auto;
   background: white;
@@ -53,7 +53,8 @@ main {
   background: #003B73;
   color: white;
   padding: 20px 32px 14px;
-  margin: -32px -32px 14px -32px;
+  /* was: margin: -32px -32px 14px -32px; */
+  margin: -34px -34px 16px -34px;  /* tiny overshoot to kill any white edge */
 }
 
 .topBanner .name {
@@ -84,24 +85,22 @@ main > .summarySection {
 }
 
 /* ============================= */
-/* 4. RIGHT SIDEBAR              */
+/* 4. RIGHT SIDEBAR (PAGE 1)     */
 /* ============================= */
 
 .rightSidebar {
   grid-column: 2 / 3;
-  grid-row: 1;         /* sidebar starts at top row */
+  grid-row: 1;
   background: #003B73;
   color: white;
-  padding: 14px 18px;
+  padding: 14px 50px 14px 18px;
+
+  /* was: margin-top: -32px; margin-right: -32px; */
+  margin-top: -36px;    /* overlap the banner by a few pixels */
+  margin-right: -34px;  /* overshoot to the page edge */
+
   align-self: start;
   height: auto;
-
-  /* pull the box up to visually touch the header */
-  margin-top: -32px;
-
-  /* extend blue background to page edge, like the top banner */
-  margin-right: -32px;      /* cancel .page right padding */
-  padding-right: 50px;      /* keep text away from the edge */
   box-sizing: border-box;
 }
 
@@ -138,16 +137,15 @@ main > .summarySection {
 }
 
 /* ============================= */
-/*  TECHNICAL SKILLS SIDEBAR     */
-/*  (PAGE 2 BLUE BOX)            */
+/* 6. TECHNICAL SKILLS (PAGE 2)  */
 /* ============================= */
 
 .techSkillsBox {
   position: absolute;
-  top: 1250px;     /* adjust if you want to nudge it up/down on page 2 */
-  right: 32px;     /* aligns with the inner content area */
+  top: 1250px;                 /* tuned to sit at top of page 2 */
+  right: 32px;                 /* aligns with inner content area */
 
-  /* 20% of the inner page width (matches 0.6fr column) */
+  /* ~20% of inner width (approx 0.6fr column) */
   width: calc((100% - 64px) * 0.2);
 
   background: #003B73;
@@ -177,12 +175,84 @@ main > .summarySection {
 }
 
 /* ============================= */
-/* 6. PRINT SETTINGS             */
+/* 7. LANGUAGE DOTS + TEXT       */
+/* ============================= */
+
+.languagesSection h2 {
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.languageItem {
+  margin-bottom: 18px !important;
+}
+
+.langName {
+  font-size: 11.5px !important;
+  margin-bottom: 4px !important;
+  font-weight: 600;
+}
+
+.langLevel {
+  font-size: 10.5px !important;
+  opacity: 0.85;
+  margin-top: 3px !important;
+}
+
+.langDots {
+  display: flex;
+  gap: 4px;
+  margin: 4px 0 !important;
+}
+
+.dot {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50%;
+}
+
+.dot.filled {
+  background-color: white !important;
+}
+
+.dot.empty {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* ============================= */
+/* 8. PDF BUTTON                 */
+/* ============================= */
+
+.printButton {
+  position: absolute;
+  top: 12px;          /* align vertically with the image */
+  right: 160px;       /* immediately to the left of the image */
+
+  padding: 8px 16px;
+  font-size: 14px;
+  background: #000000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 998;
+}
+
+/* ============================= */
+/* 9. PRINT & COLOR SETTINGS     */
 /* ============================= */
 
 @page {
   size: A4;
   margin: 0;
+}
+
+/* ensure blue areas actually print blue */
+.topBanner,
+.rightSidebar,
+.techSkillsBox {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 @media print {
@@ -201,90 +271,8 @@ main > .summarySection {
   .printButton {
     display: none;
   }
-}
 
-/* ============================= */
-/* 7. PDF BUTTON                 */
-/* ============================= */
-
-.printButton {
-  position: absolute;
-  top: 12px;          /* align vertically with the image */
-  right: 160px;       /* immediately to the left of the image */
-
-  padding: 8px 16px;
-  font-size: 14px;
-  background: #000000;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  z-index: 998;
-}
-
-/* ------------------------------- */
-/*   LANGUAGE DOT + TEXT SIZE FIX  */
-/* ------------------------------- */
-
-.languagesSection h2 {
-  font-size: 13px;
-  margin-bottom: 6px;
-}
-
-.languageItem {
-  margin-bottom: 14px !important;
-}
-
-.langName {
-  font-size: 11.5px !important;   /* smaller text */
-  margin-bottom: 4px !important;
-  font-weight: 600;
-}
-
-.langLevel {
-  font-size: 10.5px !important;    /* smaller descriptive level */
-  opacity: 0.85;
-  margin-top: 3px !important;
-}
-
-.langDots {
-  display: flex;
-  gap: 4px;                         /* slightly tighter spacing */
-  margin: 4px 0 !important;
-}
-
-.dot {
-  width: 10px !important;           /* slightly smaller dots */
-  height: 10px !important;
-  border-radius: 50%;
-}
-
-.dot.filled {
-  background-color: white !important;
-}
-
-.dot.empty {
-  background-color: rgba(255,255,255,0.3) !important;
-}
-
-/* Fix text spacing under dots */
-.languageItem {
-  margin-bottom: 18px !important;
-}
-
-.langName {
-  margin-bottom: 4px !important;
-  font-weight: 600;
-  font-size: 13px;
-}
-
-.langLevel {
-  margin-top: 4px !important;
-  font-size: 12px;
-  opacity: 0.9;
-}
-
-@media print {
+  /* try to avoid splitting items across pages */
   .experienceItem,
   .languageItem,
   .technicalSkillsSection,
@@ -292,10 +280,4 @@ main > .summarySection {
     page-break-inside: avoid;
     break-inside: avoid;
   }
-}
-.topBanner,
-.rightSidebar,
-.techSkillsBox {
-  -webkit-print-color-adjust: exact;
-  print-color-adjust: exact;
 }
