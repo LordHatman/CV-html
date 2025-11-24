@@ -78,18 +78,31 @@ main {
   margin: 0;
 }
 
+/* Hide any extra summarySection that still lives directly in <main> */
+main > .summarySection {
+  display: none;
+}
+
 /* ============================= */
 /* 4. RIGHT SIDEBAR              */
 /* ============================= */
 
 .rightSidebar {
   grid-column: 2 / 3;
-  grid-row: 1;         /* IMPORTANT: sidebar stays at top */
+  grid-row: 1;         /* sidebar starts at top row */
   background: #003B73;
   color: white;
   padding: 14px 18px;
   align-self: start;
   height: auto;
+
+  /* pull the box up to visually touch the header */
+  margin-top: -32px;
+
+  /* extend blue background to page edge, like the top banner */
+  margin-right: -32px;      /* cancel .page right padding */
+  padding-right: 50px;      /* keep text away from the edge */
+  box-sizing: border-box;
 }
 
 .rightSidebar section {
@@ -115,7 +128,7 @@ main {
 
 .workExperienceSection {
   grid-column: 1 / 2;
-  grid-row: 1;    /* NOW ALIGNED WITH SIDEBAR */
+  grid-row: 1;    /* aligned with sidebar */
   margin-top: 0;
 }
 
@@ -128,12 +141,13 @@ main {
 /*  TECHNICAL SKILLS SIDEBAR     */
 /*  (PAGE 2 BLUE BOX)            */
 /* ============================= */
+
 .techSkillsBox {
   position: absolute;
-  top: 1250px;     /* keep adjusting this until it hits the top of page 2 where you want it */
-  right: 32px;     /* aligns its right edge with the main content, same as rightSidebar */
+  top: 1250px;     /* adjust if you want to nudge it up/down on page 2 */
+  right: 32px;     /* aligns with the inner content area */
 
-  /* 20% of the inner page width (same as the 0.6fr column) */
+  /* 20% of the inner page width (matches 0.6fr column) */
   width: calc((100% - 64px) * 0.2);
 
   background: #003B73;
@@ -196,7 +210,7 @@ main {
 .printButton {
   position: absolute;
   top: 12px;          /* align vertically with the image */
-  right: 160px;       /* exactly to the left of the image */
+  right: 160px;       /* immediately to the left of the image */
 
   padding: 8px 16px;
   font-size: 14px;
@@ -206,4 +220,66 @@ main {
   border-radius: 4px;
   cursor: pointer;
   z-index: 998;
+}
+
+/* ------------------------------- */
+/*   LANGUAGE DOT + TEXT SIZE FIX  */
+/* ------------------------------- */
+
+.languagesSection h2 {
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.languageItem {
+  margin-bottom: 14px !important;
+}
+
+.langName {
+  font-size: 11.5px !important;   /* smaller text */
+  margin-bottom: 4px !important;
+  font-weight: 600;
+}
+
+.langLevel {
+  font-size: 10.5px !important;    /* smaller descriptive level */
+  opacity: 0.85;
+  margin-top: 3px !important;
+}
+
+.langDots {
+  display: flex;
+  gap: 4px;                         /* slightly tighter spacing */
+  margin: 4px 0 !important;
+}
+
+.dot {
+  width: 10px !important;           /* slightly smaller dots */
+  height: 10px !important;
+  border-radius: 50%;
+}
+
+.dot.filled {
+  background-color: white !important;
+}
+
+.dot.empty {
+  background-color: rgba(255,255,255,0.3) !important;
+}
+
+/* Fix text spacing under dots */
+.languageItem {
+  margin-bottom: 18px !important;
+}
+
+.langName {
+  margin-bottom: 4px !important;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.langLevel {
+  margin-top: 4px !important;
+  font-size: 12px;
+  opacity: 0.9;
 }
